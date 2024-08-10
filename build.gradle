@@ -32,21 +32,21 @@ dependencies {
 
 processResources {
 	final Map<String, String> meta = [
-		version        : version,
-		modId          : modId,
-		modName        : modName,
-		modDescription : modDescription,
-		homepage       : homepage,
-		issues         : issues,
-		sources        : sources,
-		license        : license,
-		authors        : authors.split(", ").join("\",\n    \""),
-		members        : "${authors}",
-		mc             : libs.versions.mc.get(),
-		fl             : libs.versions.fl.get(),
-		fapi           : libs.versions.fapi.get(),
-		"kaleidoConfig": libs.versions.kaleidoConfig.get(),
-		"seasons"      : libs.versions.seasons.get(),
+		version       : version,
+		modId         : modId,
+		modName       : modName,
+		modDescription: modDescription,
+		homepage      : homepage,
+		issues        : issues,
+		sources       : sources,
+		license       : license,
+		authors       : authors.split(", ").join("\",\n    \""),
+		members       : "${authors}",
+		mc            : libs.versions.mc.get(),
+		fl            : libs.versions.fl.get(),
+		fapi          : libs.versions.fapi.get(),
+		kaleidoConfig : libs.versions.kaleidoConfig.get(),
+		seasons       : libs.versions.seasons.get(),
 	]
 	inputs.properties(meta)
 	filesMatching("*.mod.json") { expand(meta) }

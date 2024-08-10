@@ -70,7 +70,7 @@ jar {
 
 modrinth {
 	token = System.getenv("MODRINTH_TOKEN")
-	projectId = "picohud"
+	projectId = project.name
 	versionNumber = project.version
 	uploadFile = remapJar
 	gameVersions = compatibleVersions.split(", ").toList()
@@ -86,7 +86,7 @@ modrinth {
 githubRelease {
 	token System.getenv("GITHUB_TOKEN")
 	owner "sisby-folk"
-	repo "picohud"
+	repo project.name
 	tagName "v" + version
 	releaseName version
 	targetCommitish branch

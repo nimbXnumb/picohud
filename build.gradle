@@ -45,7 +45,6 @@ processResources {
 		mc            : libs.versions.mc.get(),
 		fl            : libs.versions.fl.get(),
 		fapi          : libs.versions.fapi.get(),
-		kaleidoConfig : libs.versions.kaleidoConfig.get(),
 		seasons       : libs.versions.seasons.get(),
 	]
 	inputs.properties(meta)

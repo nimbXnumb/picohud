@@ -11,7 +11,6 @@ version = "$baseVersion+$branch"
 archivesBaseName = project.slug
 
 repositories {
-	maven { url "https://maven.cafeteria.dev/releases" }
 	maven { url "https://repo.sleeping.town/" }
 }
 
@@ -24,11 +23,6 @@ dependencies {
 	modImplementation libs.fl
 
 	modImplementation libs.fapi
-
-	modCompileOnly(libs.seasons) {
-		exclude group: "me.shedaniel"
-		exclude group: "com.terraformersmc"
-	}
 }
 
 processResources {
@@ -42,7 +36,8 @@ processResources {
 		sources       : "https://github.com/${user}/${slug}",
 		license       : license,
 		authors       : authors.split(", ").join("\",\n    \""),
-		members       : "${authors}",
+		contributors  : contributors.split(", ").join("\",\n    \""),
+		members       : "${authors}. Contributions by ${contributors}",
 		mc            : compatibleVersions.split(", ")[0],
 		fl            : libs.versions.fl.get(),
 		fapi          : libs.versions.fapi.get(),
@@ -70,20 +65,29 @@ jar {
 	}
 }
 
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+		}
+	}
+}
+
 githubRelease {
-	token = System.getenv("GITHUB_TOKEN")
+	token = "$System.env.GITHUB_TOKEN"
 	owner = project.user
 	repo = slug
 	tagName = "v${baseVersion}+${tagBranch}"
 	targetCommitish = tagBranch
 	releaseAssets = remapJar
 	releaseName = "v${baseVersion}"
-	allowUploadToExisting = (tagBranch != branch)
+	allowUploadToExisting = true
+	generateReleaseNotes = true
 	body = !file("CHANGELOG.md").exists() ? "" : rootProject.file("CHANGELOG.md").text
 }
 
 modrinth {
-	token = System.getenv("MODRINTH_TOKEN")
+	token = "$System.env.MODRINTH_TOKEN"
 	projectId = slug
 	versionNumber = project.version
 	uploadFile = remapJar
@@ -93,7 +97,6 @@ modrinth {
 	syncBodyFrom = rootProject.file("README.md").text
 	dependencies {
 		required.version libs.fapi.get().getName(), libs.versions.fapi.get()
-		optional.version libs.seasons.get().getName(), libs.versions.seasons.get()
 	}
 }
 

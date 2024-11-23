@@ -11,6 +11,7 @@ version = "$baseVersion+$branch"
 archivesBaseName = project.slug
 
 repositories {
+	maven { url "https://maven.cafeteria.dev/releases" }
 	maven { url "https://repo.sleeping.town/" }
 }
 
@@ -23,6 +24,11 @@ dependencies {
 	modImplementation libs.fl
 
 	modImplementation libs.fapi
+
+	modCompileOnly(libs.seasons) {
+		exclude group: "me.shedaniel"
+		exclude group: "com.terraformersmc"
+	}
 }
 
 processResources {
@@ -96,6 +102,7 @@ modrinth {
 	syncBodyFrom = rootProject.file("README.md").text
 	dependencies {
 		required.version libs.fapi.get().getName(), libs.versions.fapi.get()
+		optional.version libs.seasons.get().getName(), libs.versions.seasons.get()
 	}
 }
 
